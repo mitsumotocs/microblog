@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Project\Http\Application;
 use Project\Http\Request;
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 //var_dump(new Application());
 $request = Request::createFromScratch(
@@ -20,4 +20,9 @@ $request = Request::createFromScratch(
 
 $app = new Application();
 $response = $app->run($request);
-var_dump($response);
+$response->headers['X-Foo'] = 'FOO';
+$response->headers['X-Uniqid'] = uniqid();
+//var_dump($response);
+echo $response;
+
+//$app();
