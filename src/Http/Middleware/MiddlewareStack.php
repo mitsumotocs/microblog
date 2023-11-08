@@ -8,26 +8,32 @@ use Exception;
 
 class MiddlewareStack
 {
-    private int $length = 0;
     private int $cursor = 0;
 
     public function __construct(
         private array $middlewares = [],
     ) {
-        $this->length = count($this->middlewares);
     }
 
     public function push(MiddlewareInterface $middleware): self
     {
         $this->middlewares[] = $middleware;
-        $this->length = count($this->middlewares);
 
         return $this;
     }
 
+    public function at(int $index): MiddlewareInterface
+    {
+        if (!isset($this->middlewares[$index])) {
+            throw new Exception(sprintf('No middleware set at index #%d', $index));
+        }
+
+        return $this->middlewares[$index];
+    }
+
     public function first(): MiddlewareInterface
     {
-        if ($this->length === 0) {
+        if (empty($this->middlewares)) {
             throw new Exception('No middlewares set');
         }
 
@@ -38,15 +44,15 @@ class MiddlewareStack
 
     public function next(): MiddlewareInterface
     {
-        if ($this->length === 0) {
+        if (empty($this->middlewares)) {
             throw new Exception('No middlewares set');
         }
 
-        $this->cursor -= 1;
-
-        if ($this->cursor < 0) {
+        if (!isset($this->middlewares[$this->cursor - 1])) {
             throw new Exception('No more middlewares');
         }
+
+        $this->cursor -= 1;
 
         return $this->middlewares[$this->cursor];
     }
