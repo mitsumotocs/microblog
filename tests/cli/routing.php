@@ -35,7 +35,7 @@ class AnotherExampleController extends ExampleController implements ControllerIn
     }
 }
 
-$request = Request::createFromScratch('GET', '/items/apple');
+$request = Request::createFromScratch('GET', '/items/apple/');
 
 $stack = new MiddlewareStack();
 $router = new RoutingMiddleware();

@@ -40,8 +40,7 @@ class RoutingMiddleware
 
             array_shift($params);
 
-            // TODO: fix the bug!
-            return isset($route['action']) ? $route['controller']->$route['action']($request, $params) : $route['controller']($request, $params);
+            return call_user_func(isset($route['action']) ? [$route['controller'], $route['action']] : $route['controller'], $request, $params);
         }
 
         return new Response(Response::STATUS_NOT_FOUND);
