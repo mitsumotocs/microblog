@@ -3,14 +3,15 @@
 declare(strict_types=1);
 
 use Project\Http\Application;
+use Project\Http\Controller\TestController;
+use Project\Http\Middleware\RoutingMiddleware;
 use Project\Http\Request;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-//var_dump(new Application());
 $request = Request::createFromScratch(
     'GET',
-    '/foo/bar',
+    '/items/1234',
     [],
     [
         'name' => 'Alice',
@@ -18,11 +19,17 @@ $request = Request::createFromScratch(
 );
 //var_dump($request);
 
-$app = new Application();
-$response = $app->run($request);
-$response->headers['X-Foo'] = 'FOO';
-$response->headers['X-Uniqid'] = uniqid();
-//var_dump($response);
-echo $response;
+$controller = new TestController();
 
-//$app();
+$app = new Application();
+
+// TODO: pushing middleware is untested!
+$app->middlewareStack->push(new RoutingMiddleware());
+
+$app
+->route('GET', '/\A\/\z/', $controller)
+->route('GET', '/\A\/items\/(\w+)\z/', $controller, 'item');
+var_dump($app);
+
+$response = $app->handleRequest($request);
+echo $response, PHP_EOL;

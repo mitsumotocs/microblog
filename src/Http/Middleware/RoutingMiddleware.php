@@ -11,7 +11,7 @@ use Project\Http\Request;
 use Project\Http\Response;
 use RuntimeException;
 
-class RoutingMiddleware
+class RoutingMiddleware implements MiddlewareInterface
 {
     public function __construct(
         private array $routes = [],

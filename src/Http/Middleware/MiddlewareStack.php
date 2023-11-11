@@ -42,6 +42,17 @@ class MiddlewareStack
         return $this->middlewares[$this->cursor];
     }
 
+    public function last(): MiddlewareInterface
+    {
+        if (empty($this->middlewares)) {
+            throw new Exception('No middlewares set');
+        }
+
+        $this->cursor = 0;
+
+        return $this->middlewares[$this->cursor];
+    }
+
     public function next(): MiddlewareInterface
     {
         if (empty($this->middlewares)) {
