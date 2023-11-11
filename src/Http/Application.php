@@ -9,6 +9,7 @@ use Project\Http\Middleware\MiddlewareListInterface;
 class Application
 {
     public function __construct(
+        private Router $router,
         private MiddlewareListInterface $middlewares,
     ) {
     }

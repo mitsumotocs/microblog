@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Project\Http\Application;
 use Project\Http\Middleware\MiddlewareStack;
 use Project\Http\Request;
+use Project\Http\Router;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
@@ -19,7 +20,7 @@ $request = Request::createFromScratch(
 );
 //var_dump($request);
 
-$app = new Application(new MiddlewareStack());
+$app = new Application(new Router(), new MiddlewareStack());
 var_dump($app);
 $response = $app->run($request);
 $response->headers['X-Foo'] = 'FOO';
