@@ -7,15 +7,16 @@ use Project\Http\Request;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-$route = [
-    'controller' => new TestController(),
-    'action' => 'item',
-];
+$url = '/items/1234';
+$re = '/\A\/items\/(\w+)\z/';
+$re = '/(\w+\z/';
 
-$request = Request::createFromScratch('GET', '/');
-//$response = $route['controller']->$route['action']($request, []);
-$response = call_user_func([$route['controller'], $route['action']], $request, []);
-var_dump($response);
+set_error_handler(function () {}, E_WARNING);
 
-//var_dump($route);
-//echo $route['action'], PHP_EOL;
+$match = preg_match($re, '');
+
+restore_error_handler();
+var_dump($match);
+
+//$result = preg_match($re, $url, $matches);
+//var_dump($result, $matches);
