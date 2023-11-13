@@ -1,0 +1,5 @@
+- test Application using DI container with middlewares and controllers:
+  $app = new Application()
+  $app->addMiddleware()
+  $app->route()
+  $app()
