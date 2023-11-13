@@ -6,7 +6,7 @@ namespace Project\Http\Middleware;
 
 use Exception;
 
-class MiddlewareStack
+class MiddlewareStack implements MiddlewareListInterface
 {
     private int $cursor = 0;
 
@@ -20,6 +20,11 @@ class MiddlewareStack
         $this->middlewares[] = $middleware;
 
         return $this;
+    }
+
+    public function add(MiddlewareInterface $middleware): MiddlewareListInterface
+    {
+        return $this->push($middleware);
     }
 
     public function at(int $index): MiddlewareInterface
