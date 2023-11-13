@@ -1,5 +1,3 @@
-- test Application using DI container with middlewares and controllers:
-  $app = new Application()
-  $app->addMiddleware()
-  $app->route()
-  $app()
+- do I need controller interface? guess all I need is redirect trait.
+
+- I don't think I need HTTP exceptions since the error handling middleware deals with them

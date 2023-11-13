@@ -22,14 +22,7 @@ class Application
 
     public function __invoke(): void
     {
-        $this->run(Request::createFromGlobals())->send();
-    }
-
-    public function run(Request $request): Response
-    {
-        $response = new Response();
-        $response->body = 'Hello, world!';
-        return $response;
+        $this->handleRequest(Request::createFromGlobals())->send();
     }
 
     public function handleRequest(Request $request): Response

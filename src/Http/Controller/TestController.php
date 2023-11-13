@@ -6,6 +6,7 @@ namespace Project\Http\Controller;
 
 use Project\Http\Request;
 use Project\Http\Response;
+use RuntimeException;
 
 class TestController implements ControllerInterface
 {
@@ -18,8 +19,11 @@ class TestController implements ControllerInterface
 
     public function item(Request $request, array $params): Response
     {
+        throw new RuntimeException('test');
+
         $response = new Response();
         $response->body = 'Item action with params: ' . implode(', ', $params) . ' in ' . $this::class;
+
         return $response;
     }
 }
