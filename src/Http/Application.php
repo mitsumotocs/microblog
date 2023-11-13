@@ -6,6 +6,7 @@ namespace Project\Http;
 
 use LogicException;
 use Project\Http\Controller\ControllerInterface;
+use Project\Http\Middleware\MiddlewareInterface;
 use Project\Http\Middleware\MiddlewareStack;
 use Project\Http\Middleware\RoutingMiddleware;
 
@@ -34,6 +35,13 @@ class Application
     public function handleRequest(Request $request): Response
     {
         return $this->middlewareStack->first()($request, $this->middlewareStack);
+    }
+
+    public function addMiddleware(MiddlewareInterface $middleware): self
+    {
+        $this->middlewareStack->push($middleware);
+
+        return $this;
     }
 
     public function route(string $method, string $pattern, ControllerInterface $controller, ?string $action = null): self
