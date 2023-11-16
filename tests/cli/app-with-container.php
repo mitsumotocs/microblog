@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Project\Di\Container;
 use Project\Http\Application;
 use Project\Http\Controller\TestController;
+use Project\Http\Middleware\ContentLengthMiddleware;
 use Project\Http\Middleware\ErrorHandlingMiddleware;
 use Project\Http\Middleware\MiddlewareInterface;
 use Project\Http\Middleware\MiddlewareStack;
@@ -45,6 +46,7 @@ $app = $c[Application::class];
 $app
     ->addMiddleware($c[ExampleMiddleware::class])
     ->addMiddleware($c[AnotherExampleMiddleware::class])
+    ->addMiddleware($c[ContentLengthMiddleware::class])
     ->addMiddleware($c[ErrorHandlingMiddleware::class])
     ->route('GET', '/\A\/\z/', $c[TestController::class])
     ->route('GET', '/\A\/items\/(\w+)\z/', $c[TestController::class], 'item');

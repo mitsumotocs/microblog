@@ -19,7 +19,7 @@ class TestController implements ControllerInterface
 
     public function item(Request $request, array $params): Response
     {
-        throw new RuntimeException('test');
+        //throw new RuntimeException('test');
 
         $response = new Response();
         $response->body = 'Item action with params: ' . implode(', ', $params) . ' in ' . $this::class;
