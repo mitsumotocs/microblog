@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Project\Http;
 
-use ArrayAccess;
 use RuntimeException;
 
-class Session implements ArrayAccess
+class Session
 {
     public readonly string $id;
+    public array $data;
 
     public function __construct(
         public readonly array $options = [],
@@ -18,12 +18,14 @@ class Session implements ArrayAccess
         if ($status === PHP_SESSION_DISABLED) {
             throw new RuntimeException('Session is disabled');
         }
-        if ($status === PHP_SESSION_NONE || !isset($_SESSION)) {
+        if ($status === PHP_SESSION_NONE) {
             if (session_start($this->options) === false) {
                 throw new RuntimeException('Failed to start a session');
             }
         }
-        $this->id = $id ?? session_id();
+
+        $this->id = session_id();
+        $this->data = &$_SESSION;
     }
 
     public function renew(): self
@@ -33,25 +35,5 @@ class Session implements ArrayAccess
         }
 
         return new self($this->options);
-    }
-
-    public function offsetSet(mixed $offset, mixed $value): void
-    {
-        $_SESSION[$offset] = $value;
-    }
-
-    public function offsetExists(mixed $offset): bool
-    {
-        return isset($_SESSION[$offset]);
-    }
-
-    public function offsetUnset(mixed $offset): void
-    {
-        unset($_SESSION[$offset]);
-    }
-
-    public function offsetGet(mixed $offset): mixed
-    {
-        return $_SESSION[$offset];
     }
 }

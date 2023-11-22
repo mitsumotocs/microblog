@@ -6,18 +6,19 @@ use Project\Http\Session;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-$session = new Session([]);
+$session = new Session([
+    'name' => 'MY_SESSION',
+    'sid_bits_per_character' => 5,
+]);
 
-if (!isset($session['uid'])) {
-    $session['uid'] = uniqid();
+if (!isset($session->data['uid'])) {
+    $session->data['uid'] = uniqid();
 }
 
-$session['count'] = isset($session['count']) ? $session['count'] + 1 : 0;
+$session->data['count'] = isset($session->data['count']) ? $session->data['count'] + 1 : 0;
 
-if ($session['count'] % 5 === 0) {
-    //$sessionRenewed = $session->renew();
+if ($session->data['count'] % 5 === 0) {
     $session->renew();
 }
 
-//var_dump($session);
-var_dump($session->id, $session['uid'], $session['count']);
+var_dump($session->id, $session->data['uid'], $session->data['count']);
