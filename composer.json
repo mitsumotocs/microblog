@@ -1,7 +1,8 @@
 {
     "require": {
         "php": ">=8.1",
-        "ramsey/uuid": "5.x-dev"
+        "ramsey/uuid": "5.x-dev",
+        "sqids/sqids": "^1.0@dev"
     },
     "autoload": {
         "psr-4": {
