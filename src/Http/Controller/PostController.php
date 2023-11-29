@@ -9,7 +9,6 @@ use Project\Http\Request;
 use Project\Http\Response;
 use Ramsey\Uuid\Uuid;
 use RuntimeException;
-use Sqids\Sqids;
 
 class PostController implements ControllerInterface
 {
