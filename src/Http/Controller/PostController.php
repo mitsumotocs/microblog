@@ -36,11 +36,18 @@ class PostController implements ControllerInterface
             $posts[] = $postData;
         }
 
+        // render response
         $response = new Response();
         $response->body .= '<html><body>';
-        $response->body .= '<pre>';
-        $response->body .= var_export($posts, true);
-        $response->body .= '</pre>';
+        // $response->body .= '<pre>';
+        // $response->body .= var_export($posts, true);
+        // $response->body .= '</pre>';
+        foreach ($posts as $post) {
+            $response->body .= sprintf('<h1>%s</h1>', date('Y-m-d H:i:s', (int) $post['createdAt'] ?? 0));
+            $response->body .= sprintf('<p><i>%s</i></p>', $post['id']);
+            $response->body .= sprintf('<p>%s</p>', $post['content']);
+            $response->body .= '<hr>';
+        }
         $response->body .= '</body><html>';
 
         return $response;
