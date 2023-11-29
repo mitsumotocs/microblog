@@ -24,6 +24,7 @@ $app
 $app
     ->route('GET', '/\A\/\z/', $container[TestController::class])
     ->route('GET', '/\A\/posts\z/', $container[PostController::class], 'index')
+    ->route('GET', '/\A\/posts\/new\z/', $container[PostController::class], 'form')
     ->route('POST', '/\A\/posts\/create\z/', $container[PostController::class], 'create');
 //->route('GET', '/\A\/items\/(\w+)\z/', $container[TestController::class], 'item');
 

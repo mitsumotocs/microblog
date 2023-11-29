@@ -80,4 +80,25 @@ class PostController implements ControllerInterface
 
         return $response;
     }
+
+    public function form(Request $request): Response
+    {
+        $response = new Response();
+
+        $response->body = <<<EOH
+<html>
+<head>
+</head>
+<body style="font-size: 16px;">
+<h1>New Post</h1>
+<form method="post" action="/posts/create">
+<textarea rows="10" name="content" placeholder="Hello, world!" style="width: 100%; font-size: inherit;"></textarea>
+<button type="submit">create</button>
+</form>
+</body>
+</html>
+EOH;
+
+        return $response;
+    }
 }
