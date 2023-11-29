@@ -8,6 +8,7 @@ use Project\Http\Controller\PostController;
 use Project\Http\Controller\TestController;
 use Project\Http\Middleware\ContentLengthMiddleware;
 use Project\Http\Middleware\ErrorHandlingMiddleware;
+use Project\Http\Middleware\PerformanceMonitoringMiddleware;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -17,6 +18,7 @@ $app = new Application();
 
 $app
     ->addMiddleware($container[ContentLengthMiddleware::class])
+    ->addMiddleware($container[PerformanceMonitoringMiddleware::class])
     ->addMiddleware($container[ErrorHandlingMiddleware::class]);
 
 $app
