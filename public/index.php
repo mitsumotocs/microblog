@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Project\Di\Container;
 use Project\Http\Application;
 use Project\Http\Controller\PostController;
+use Project\Http\Controller\RootController;
 use Project\Http\Controller\TestController;
 use Project\Http\Middleware\ContentLengthMiddleware;
 use Project\Http\Middleware\ErrorHandlingMiddleware;
@@ -22,7 +23,7 @@ $app
     ->addMiddleware($container[ErrorHandlingMiddleware::class]);
 
 $app
-    ->route('GET', '/\A\/\z/', $container[TestController::class])
+    ->route('GET', '/\A\/\z/', $container[RootController::class], 'index')
     ->route('GET', '/\A\/posts\z/', $container[PostController::class], 'index')
     ->route('GET', '/\A\/posts\/new\z/', $container[PostController::class], 'form')
     ->route('POST', '/\A\/posts\/create\z/', $container[PostController::class], 'create');
