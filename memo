@@ -32,3 +32,22 @@ uid.json
 -preferences
 --blocked[]
 --...
+
+PersistenceInterface
+->write(resource, data)
+->createIfNo(resource)
+->read(resource)
+
+StorageInterface
+->save(entity, string path)
+->load(resource)
+
+Storable entity
+post->save()
+post->load(from what?)
+Nah!
+
+PostModel
+->add(Post) does: create post file, update meta file
+->findById(Post id)
+->update(Post)
